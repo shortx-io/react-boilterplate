@@ -1,6 +1,5 @@
 import {Title} from "react-head/Title";
 import {NavLink} from "react-router-dom";
-import {defaultLabelClass} from "utils/input-helpers";
 import TextBox from "components/input/TextBox";
 
 type AuthenticationProps = {
