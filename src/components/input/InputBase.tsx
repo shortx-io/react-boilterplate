@@ -17,3 +17,7 @@ export type InputFieldProperties = {
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void,
     onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void,
 };
+
+export function Input(props: InputFieldProperties) {
+    return <input {...props}/>
+}

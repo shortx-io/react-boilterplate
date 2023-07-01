@@ -18,7 +18,7 @@ export function isString(value: any) {
     return typeof value === 'string';
 }
 
-export function ifStringOr(value: any, defaultValue: any) {
+export function ifStringOr(value: any, defaultValue: string): string {
     return isString(value) ? value : defaultValue;
 }
 

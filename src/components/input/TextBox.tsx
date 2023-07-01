@@ -1,8 +1,9 @@
-import {ifStringOr} from "../../utils/helpers.ts";
-import {defaultInputClass, defaultInputContainerClass, defaultLabelClass} from "../../utils/input-helpers.ts";
-import {InputFieldProperties} from "./InputBase.tsx";
+import React from "react";
+import {ifStringOr} from "utils/helpers";
+import {defaultInputClass, defaultInputContainerClass, defaultLabelClass} from "utils/input-helpers";
+import {Input, InputFieldProperties} from "./InputBase";
 
-export default function TextBox(props: InputFieldProperties & { [key: string]: any }) {
+export default function TextBox(props: InputFieldProperties & { [key: string]: string | boolean | number | ((e: React.SyntheticEvent) => void) }) {
     const labelClass = ifStringOr(props.labelClass, defaultLabelClass);
     const inputContainerClass = ifStringOr(props.inputContainerClass, defaultInputContainerClass);
     const inputClass = ifStringOr(props.inputClass, defaultInputClass);
@@ -14,6 +15,8 @@ export default function TextBox(props: InputFieldProperties & { [key: string]: a
     delete _props.inputContainerClass;
     delete _props.boxClass;
     delete _props.inputClass;
+    delete _props.label;
+
     _props.id = id;
     _props.type = type;
     _props.className = inputClass;
@@ -22,7 +25,7 @@ export default function TextBox(props: InputFieldProperties & { [key: string]: a
         <div className={props.boxClass}>
             {props.label && <label htmlFor={id} className={labelClass}>{props.label}</label>}
             <div className={inputContainerClass}>
-                <input {..._props}/>
+                <Input {..._props}/>
             </div>
         </div>
     );
