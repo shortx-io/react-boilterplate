@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import headManager from "./HeadManager.ts";
+import headManager from "./HeadManager";
 
 type MetaProps = {
     charset?: string,

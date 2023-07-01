@@ -1,4 +1,4 @@
-import React from "react";
+import {ChangeEvent, FocusEvent, FormEvent, KeyboardEvent} from "react";
 
 export type InputFieldProperties = {
     id?: string,
@@ -11,13 +11,15 @@ export type InputFieldProperties = {
     boxClass?: string,
     inputClass?: string,
     placeholder?: string,
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    onInput?: (event: React.FormEvent<HTMLInputElement>) => void,
-    onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void,
-    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void,
-    onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void,
+    value?: string,
+    defaultValue?: string,
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
+    onInput?: (event: FormEvent<HTMLInputElement>) => void,
+    onFocus?: (event: FocusEvent<HTMLInputElement>) => void,
+    onBlur?: (event: FocusEvent<HTMLInputElement>) => void,
+    onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void,
 };
 
 export function Input(props: InputFieldProperties) {
-    return <input {...props}/>
+    return <input {...props} />
 }

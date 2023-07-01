@@ -14,6 +14,8 @@ async function setup() {
                               placeholder="Email Address"
                               label="Email Address"
                               onFocus={onFocus}
+                              required
+                              defaultValue="smrockypk@gmail.com"
                               onChange={onChange}/>)
     input = await textBox.findByPlaceholderText('Email Address') as HTMLInputElement;
 }
@@ -52,5 +54,17 @@ describe('<TextBox />', function () {
     it('should emit onFocus event on focus', async function () {
         fireEvent.focus(input);
         expect(onFocus).toBeCalled();
+    });
+
+    it('should render input with given value', function () {
+        expect(input.value).toBe('smrockypk@gmail.com');
+    });
+
+    it('should render input with required attribute', function () {
+        expect(input.required).toBeTruthy();
+    });
+
+    it('should render input with an id', function () {
+        expect(input.id).toBeTruthy();
     });
 });

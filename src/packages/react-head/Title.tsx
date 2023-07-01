@@ -1,4 +1,4 @@
-import headManager from "./HeadManager.ts";
+import headManager from "./HeadManager";
 
 export function Title(props: { children: string }) {
     headManager.setTitle(props.children);
