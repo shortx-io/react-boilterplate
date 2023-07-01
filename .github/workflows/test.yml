@@ -26,4 +26,4 @@ jobs:
           create-new-comment: false
           hide-summary: false
           coverage-title: Coverage
-          coverage-path: ./coverage/coverage-final.json
+          coverage-path: ./coverage/coverage.txt
