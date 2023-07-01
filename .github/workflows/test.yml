@@ -7,16 +7,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 'latest'
+
       - name: Install Dependencies
         run: yarn install
+
       - name: Jest Unit Test
         run: yarn test:unit --no-cache
+
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
+        id: coverageComment
         with:
           coverage-summary-path: ./coverage/coverage-summary.json
           title: Unit Test Coverage
@@ -27,3 +32,22 @@ jobs:
           hide-summary: false
           coverage-title: Coverage
           coverage-path: ./coverage/coverage.txt
+          report-only-changed-files: true
+
+      - name: Check the output coverage
+        run: |
+          echo "Coverage Percentage - ${{ steps.coverageComment.outputs.coverage }}"
+          echo "Coverage Color - ${{ steps.coverageComment.outputs.color }}"
+          echo "Summary HTML - ${{ steps.coverageComment.outputs.summaryHtml }}"
+
+      - name: Create the badge
+        if: github.ref == 'refs/heads/master'
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.JEST_COVERAGE_COMMENT }}
+          gistID: b0f8fef776a5c6e55b3787a23e456421
+          filename: shortx-ui-coverage.json
+          label: Coverage
+          message: ${{ steps.coverageComment.outputs.coverage }}%
+          color: ${{ steps.coverageComment.outputs.color }}
+          namedLogo: typescript
