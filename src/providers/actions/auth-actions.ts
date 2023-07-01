@@ -25,3 +25,12 @@ export function updateUser(user: User) {
         }
     }
 }
+
+export function setNextRoute(nextRoute: string) {
+    return {
+        type: actions.SET_NEXT_ROUTE,
+        payload: {
+            nextRoute,
+        }
+    }
+}

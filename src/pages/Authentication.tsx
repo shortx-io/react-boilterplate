@@ -1,12 +1,30 @@
+import {MouseEventHandler, useState} from "react";
 import {Title} from "react-head/Title";
+import {Navigate} from "react-router";
 import {NavLink} from "react-router-dom";
 import TextBox from "components/input/TextBox";
+import {User} from "../models/user";
+import {useAuth} from "providers/AuthProvider";
 
 type AuthenticationProps = {
     isSignUp: boolean,
 }
 
 export default function Authentication({isSignUp}: AuthenticationProps) {
+    const auth = useAuth();
+    const [redirect, setRedirect] = useState<string | undefined>(undefined);
+
+    if (redirect) {
+        return <Navigate to={redirect}/>;
+    }
+
+    const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault();
+
+        auth.dispatch(auth.actions.login({} as User, 'xxx'));
+        setRedirect(auth.nextRoute || '/');
+    };
+
     return (
         <>
             <Title>Authentication</Title>
@@ -24,7 +42,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
                     <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-                        <form className="space-y-6" action="#" method="POST">
+                        <form className="space-y-6" method="POST">
                             {isSignUp &&
                                 <div>
                                     <div className="flex -space-x-px mt-2">
@@ -94,6 +112,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                             <div>
                                 <button
                                     type="submit"
+                                    onClick={onSubmit}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     {isSignUp ? 'Sign up' : 'Sign in'}

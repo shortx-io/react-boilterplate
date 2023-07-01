@@ -1,9 +1,10 @@
-import {User} from "../../models/user";
+import {User} from "models/user";
 
 export type AuthContextProps = {
     isAuthenticated?: boolean;
     user?: User | null,
-    token?: string | null
+    token?: string | null,
+    nextRoute?: string | null,
     [k: string]: string | number | null | boolean | User | undefined | object,
 };
 
@@ -15,6 +16,7 @@ export const actions = {
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
     UPDATE_USER: 'UPDATE_USER',
+    SET_NEXT_ROUTE: 'SET_NEXT_ROUTE',
 }
 
 export function AuthReducer(state: AuthContextProps, action: {
@@ -36,6 +38,7 @@ export function AuthReducer(state: AuthContextProps, action: {
                 isAuthenticated: false,
             };
         case actions.UPDATE_USER:
+        case actions.SET_NEXT_ROUTE:
             return {
                 ...state,
                 ...action.payload,
