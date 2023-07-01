@@ -8,4 +8,16 @@ export default defineConfig({
         react({tsDecorators: true}),
         tsconfigPaths(),
     ],
-})
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: './src/setupTests.ts',
+        coverage: {
+            provider: 'istanbul',
+            reportsDirectory: 'coverage',
+            reporter: [['text', {file: 'coverage.txt'}], 'json-summary'],
+        },
+    },
+});

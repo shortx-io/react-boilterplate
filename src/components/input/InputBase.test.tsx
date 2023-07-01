@@ -1,7 +1,6 @@
-import {cleanup, render} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import {Input} from "components/input/InputBase";
-
-afterEach(cleanup);
+import {describe, it, beforeEach} from 'vitest';
 
 const setup = () => {
     render(<Input name="test" type="email" placeholder="Email Address" defaultValue="default"/>);

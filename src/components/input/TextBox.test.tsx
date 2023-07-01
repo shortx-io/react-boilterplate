@@ -1,10 +1,11 @@
 import {cleanup, fireEvent, render, RenderResult} from "@testing-library/react";
 import TextBox from "components/input/TextBox";
+import {vi} from "vitest";
 
 afterEach(cleanup);
 
-const onChange = jest.fn();
-const onFocus = jest.fn();
+const onChange = vi.fn();
+const onFocus = vi.fn();
 let textBox: RenderResult;
 let input: HTMLInputElement;
 

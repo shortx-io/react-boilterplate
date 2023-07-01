@@ -17,7 +17,7 @@ jobs:
         run: yarn install
 
       - name: Jest Unit Test
-        run: yarn test:unit --no-cache
+        run: yarn test:coverage
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
