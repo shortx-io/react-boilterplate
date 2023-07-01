@@ -17,3 +17,6 @@ jobs:
         run: yarn test:unit --no-cache
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
+        with:
+          hide-comment: true
+          coverage-summary-path: ./coverage/coverage-final.json
