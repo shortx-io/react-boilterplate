@@ -2,6 +2,8 @@ import AuthContext from "providers/AuthProvider";
 import HttpClientContext from "providers/HttpClientProvider";
 import {useContext} from "react";
 
+export * from "./api-providers/AuthApiProvider";
+
 export function useAuth() {
     return useContext(AuthContext);
 }

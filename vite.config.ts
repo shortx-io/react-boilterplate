@@ -1,7 +1,6 @@
 import react from "@vitejs/plugin-react-swc";
 import {defineConfig} from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import PluginInspect from "vite-plugin-inspect";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import mockServer from "./plugins/mock-server";
@@ -12,7 +11,6 @@ export default defineConfig({
         react({tsDecorators: true}),
         tsconfigPaths(),
         mockServer(),
-        PluginInspect(),
     ],
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

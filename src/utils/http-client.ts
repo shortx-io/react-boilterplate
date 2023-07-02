@@ -6,7 +6,11 @@ export default class HttpClient {
     put = axios.put;
     delete = axios.delete;
     patch = axios.patch;
+
     setAuthorizationHeader = (token: string) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     };
+    setBaseUrl = (url: string) => {
+        axios.defaults.baseURL = url;
+    }
 }

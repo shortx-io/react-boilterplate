@@ -35,6 +35,10 @@
       "pages/*": ["./src/pages/*"],
       "providers":["./src/providers"],
       "providers/*":["./src/providers/*"],
+      "api":["./src/api"],
+      "api/*":["./src/api/*"],
+      "contracts":["./src/contracts"],
+      "contracts/*":["./src/contracts/*"],
       "utils": ["./src/utils"],
       "utils/*": ["./src/utils/*"]
     }
