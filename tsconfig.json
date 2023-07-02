@@ -41,8 +41,8 @@
       "contracts/*":["./src/contracts/*"],
       "utils": ["./src/utils"],
       "utils/*": ["./src/utils/*"]
-    }
+    },
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.prod.json" }]
+  "references": [{ "path": "./tsconfig.prod.json" }],
 }

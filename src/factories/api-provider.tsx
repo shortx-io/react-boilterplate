@@ -1,12 +1,12 @@
-import BaseApi from "api/base.api";
 import {useHttpClient} from "providers";
-import {createContext, useContext} from "react";
+import {createContext, PropsWithChildren} from "react";
 
-export function createApiProvider<T extends typeof BaseApi>(Api: T) {
+export function createApiProvider<T>(Api: new () => T) {
     const ApiContext = createContext<T>({} as T);
 
-    function ApiProvider({children}: {children: never}) {
+    function ApiProvider({children}: PropsWithChildren) {
         const httpClient = useHttpClient();
+        // @ts-ignore
         const api = new Api(httpClient) as unknown as T;
 
         return (
@@ -16,7 +16,5 @@ export function createApiProvider<T extends typeof BaseApi>(Api: T) {
         );
     }
 
-    const useApi = () => useContext(ApiContext);
-
-    return {ApiContext, ApiProvider, useApi} as const;
+    return {ApiContext, ApiProvider} as const;
 }

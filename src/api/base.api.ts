@@ -10,9 +10,11 @@ export default class BaseApi {
         this.httpClient = httpClient;
     }
 
-    formatResponse<T>(req: Promise<AxiosResponse>) {
+    formatResponse<T>(req: Promise<AxiosResponse>): Promise<ApiResponse<T>> {
         return req
             .then((res) => ApiResponse.fromAxiosResponse<T>(res))
-            .catch((err) => ApiError.fromAxiosError(err));
+            .catch((err) => {
+                throw Promise.reject(ApiError.fromAxiosError(err))
+            });
     }
 }

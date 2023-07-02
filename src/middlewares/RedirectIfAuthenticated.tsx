@@ -3,7 +3,7 @@ import {PropsWithChildren, ReactNode} from "react";
 import {Navigate} from "react-router";
 
 type Props = {
-    c?: ReactNode;
+    component?: ReactNode;
 } & PropsWithChildren;
 
 export function RedirectIfAuthenticated(props: Props) {
@@ -14,7 +14,7 @@ export function RedirectIfAuthenticated(props: Props) {
     }
 
     return <>
-        {props.c}
+        {props.component}
         {props.children}
     </>;
 }

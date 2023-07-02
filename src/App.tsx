@@ -7,7 +7,10 @@ import router from "./Router";
 
 export function App() {
     const httpClient = new HttpClient();
-    const {DEV, DEV_URL, PROD_URL} = import.meta.env;
+    const DEV = import.meta.env.DEV;
+    const DEV_URL = import.meta.env.VITE_DEV_URL;
+    const PROD_URL = import.meta.env.VITE_PROD_URL;
+
     httpClient.setBaseUrl(DEV ? DEV_URL : PROD_URL);
 
     return <React.StrictMode>

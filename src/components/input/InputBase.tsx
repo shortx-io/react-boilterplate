@@ -18,6 +18,7 @@ export type InputFieldProperties = {
     onFocus?: (event: FocusEvent<HTMLInputElement>) => void,
     onBlur?: (event: FocusEvent<HTMLInputElement>) => void,
     onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void,
+    [key: string]: string | number | boolean | undefined | ((event: never) => void),
 };
 
 export function Input(props: InputFieldProperties) {
