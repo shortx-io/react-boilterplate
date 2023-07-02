@@ -1,4 +1,4 @@
-import {useAuth} from "providers/AuthProvider";
+import {useAuth} from "providers";
 import {PropsWithChildren, useEffect, useState} from "react";
 import {Navigate, useLocation} from "react-router";
 

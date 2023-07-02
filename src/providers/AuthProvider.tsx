@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useReducer} from "react";
+import React, {createContext, useReducer} from "react";
 import * as actions from "./actions/auth-actions";
 import {AuthContextProps, AuthReducer, initialState} from "./reducers/auth-reducer";
 
@@ -17,10 +17,6 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     return <AuthContext.Provider value={{...state, actions, dispatch}}>
         {children}
     </AuthContext.Provider>;
-}
-
-export function useAuth() {
-    return useContext(AuthContext);
 }
 
 export default AuthContext;

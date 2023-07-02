@@ -19,14 +19,23 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "assets": ["./src/assets"],
       "assets/*": ["./src/assets/*"],
+      "components": ["./src/components"],
       "components/*": ["./src/components/*"],
+      "layouts": ["./src/layouts"],
       "layouts/*": ["./src/layouts/*"],
+      "middlewares": ["./src/middlewares"],
       "middlewares/*": ["./src/middlewares/*"],
+      "models": ["./src/models"],
       "models/*": ["./src/models/*"],
+      "react-head":["./src/packages/react-head"],
       "react-head/*":["./src/packages/react-head/*"],
+      "pages": ["./src/pages"],
       "pages/*": ["./src/pages/*"],
+      "providers":["./src/providers"],
       "providers/*":["./src/providers/*"],
+      "utils": ["./src/utils"],
       "utils/*": ["./src/utils/*"]
     }
   },
