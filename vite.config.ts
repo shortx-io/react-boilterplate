@@ -20,4 +20,5 @@ export default defineConfig({
             reporter: [['text', {file: 'coverage.txt'}], 'json-summary'],
         },
     },
+    base: '/',
 });

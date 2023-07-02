@@ -1,10 +1,11 @@
 import TextBox from "components/input/TextBox";
-import {useAuth} from "providers/AuthProvider";
+import {User} from "models/user";
+import {useAuth} from "providers";
 import {MouseEventHandler, useState} from "react";
 import {Title} from "react-head/Title";
+import {Trans, useTranslation} from "react-i18next";
 import {Navigate} from "react-router";
 import {NavLink} from "react-router-dom";
-import {User} from "../models/user";
 
 type AuthenticationProps = {
     isSignUp: boolean,
@@ -13,6 +14,7 @@ type AuthenticationProps = {
 export default function Authentication({isSignUp}: AuthenticationProps) {
     const auth = useAuth();
     const [redirect, setRedirect] = useState<string | undefined>(undefined);
+    const [t] = useTranslation();
 
     if(redirect) {
         return <Navigate to={redirect}/>;
@@ -27,7 +29,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
 
     return (
         <>
-            <Title>Authentication</Title>
+            <Title>{t(isSignUp ? 'Sign up' : 'Login')}</Title>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <img
@@ -36,7 +38,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                         alt="Your Company"
                     />
                     <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        {isSignUp ? "Create an account" : "Sign in to your account"}
+                        {isSignUp ? t("Create an account") : t("Sign in to your account")}
                     </h2>
                 </div>
 
@@ -50,20 +52,20 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                                  name="first_name"
                                                  required
                                                  boxClass="w-1/2 min-w-0 flex-1"
-                                                 label="First Name"
+                                                 label={t("First Name")}
                                                  labelClass="sr-only"
                                                  inputClass="relative block w-full rounded-none rounded-l-md border-0 bg-transparent py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                 placeholder="First Name"
+                                                 placeholder={t("First Name")}
                                                  inputContainerClass=""/>
 
                                         <TextBox id="last-name"
                                                  name="last_name"
                                                  required
                                                  boxClass="w-1/2 min-w-0 flex-1"
-                                                 label="Last Name"
+                                                 label={t("Last Name")}
                                                  labelClass="sr-only"
                                                  inputClass="relative block w-full rounded-none rounded-r-md border-0 bg-transparent py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                 placeholder="Last Name"
+                                                 placeholder={t("Last Name")}
                                                  inputContainerClass=""/>
                                     </div>
                                 </div>
@@ -72,21 +74,27 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                             <TextBox id="email"
                                      name="email"
                                      type="email"
+                                     label={t("Email Address")}
+                                     labelClass="sr-only"
                                      required
-                                     placeholder="Email Address"/>
+                                     placeholder={t("Email Address")}/>
 
                             <TextBox id="password"
                                      name="password"
                                      type="password"
+                                     label={t("Password")}
+                                     labelClass="sr-only"
                                      required
-                                     placeholder="Password"/>
+                                     placeholder={t("Password")}/>
 
                             {isSignUp &&
                                 <TextBox id="confirm_password"
                                          name="confirm_password"
                                          type="password"
+                                         label={t("Confirm Password")}
+                                         labelClass="sr-only"
                                          required
-                                         placeholder="Confirm Password"/>
+                                         placeholder={t("Confirm Password")}/>
                             }
 
                             {!isSignUp && <div className="flex items-center justify-between">
@@ -98,13 +106,13 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                     />
                                     <label htmlFor="remember-me" className="ml-3 block text-sm leading-6 text-gray-900">
-                                        Remember me
+                                        <Trans>Remember me</Trans>
                                     </label>
                                 </div>
 
                                 <div className="text-sm leading-6">
                                     <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                                        Forgot password?
+                                        <Trans>Forgot password?</Trans>
                                     </a>
                                 </div>
                             </div>}
@@ -115,7 +123,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                     onClick={onSubmit}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
-                                    {isSignUp ? "Sign up" : "Sign in"}
+                                    {isSignUp ? t("Sign up") : t("Sign in")}
                                 </button>
                             </div>
                         </form>
@@ -126,7 +134,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                     <div className="w-full border-t border-gray-200"/>
                                 </div>
                                 <div className="relative flex justify-center text-sm font-medium leading-6">
-                                    <span className="bg-white px-6 text-gray-900">Or continue with</span>
+                                    <span className="bg-white px-6 text-gray-900"><Trans>Or continue with</Trans></span>
                                 </div>
                             </div>
 
@@ -139,7 +147,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                         <path
                                             d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"/>
                                     </svg>
-                                    <span className="text-sm font-semibold leading-6">Twitter</span>
+                                    <span className="text-sm font-semibold leading-6"><Trans>Twitter</Trans></span>
                                 </a>
 
                                 <a
@@ -153,17 +161,17 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                             clipRule="evenodd"
                                         />
                                     </svg>
-                                    <span className="text-sm font-semibold leading-6">GitHub</span>
+                                    <span className="text-sm font-semibold leading-6"><Trans>Github</Trans></span>
                                 </a>
                             </div>
                         </div>
                     </div>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        {isSignUp ? "Already a member?" : "Not a member?"} {" "}
+                        <Trans>{isSignUp ? "Already a member?" : "Not a member?"}</Trans> {" "}
                         <NavLink to={isSignUp ? "/login" : "/signup"}
                                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
-                            {isSignUp ? "Login here" : "Sign up for a new account"}
+                            <Trans>{isSignUp ? "Login here" : "Sign up for a new account"}</Trans>
                         </NavLink>
                     </p>
                 </div>
