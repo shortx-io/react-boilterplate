@@ -7,14 +7,14 @@ export function login(user: User, token: string) {
         payload: {
             user,
             token,
-        }
-    }
+        },
+    };
 }
 
 export function logout() {
     return {
         type: actions.LOGOUT,
-    }
+    };
 }
 
 export function updateUser(user: User) {
@@ -22,8 +22,8 @@ export function updateUser(user: User) {
         type: actions.UPDATE_USER,
         payload: {
             user,
-        }
-    }
+        },
+    };
 }
 
 export function setNextRoute(nextRoute: string) {
@@ -31,6 +31,6 @@ export function setNextRoute(nextRoute: string) {
         type: actions.SET_NEXT_ROUTE,
         payload: {
             nextRoute,
-        }
-    }
+        },
+    };
 }

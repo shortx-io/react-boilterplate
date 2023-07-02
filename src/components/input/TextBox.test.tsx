@@ -17,55 +17,55 @@ async function setup() {
                               onFocus={onFocus}
                               required
                               defaultValue="smrockypk@gmail.com"
-                              onChange={onChange}/>)
-    input = await textBox.findByPlaceholderText('Email Address') as HTMLInputElement;
+                              onChange={onChange}/>);
+    input = await textBox.findByPlaceholderText("Email Address") as HTMLInputElement;
 }
 
-describe('<TextBox />', function () {
+describe("<TextBox />", function() {
     beforeEach(setup);
 
-    it('should render an input with the name "email"', function () {
-        expect(document.querySelector('input')?.name).toBe('email');
+    it("should render an input with the name \"email\"", function() {
+        expect(document.querySelector("input")?.name).toBe("email");
     });
 
-    it('should render an input with the type "email"', function () {
-        expect(document.querySelector('input')?.type).toBe('email');
+    it("should render an input with the type \"email\"", function() {
+        expect(document.querySelector("input")?.type).toBe("email");
     });
 
-    it('should render an input with placeholder "Email Address"', function () {
-        expect(document.querySelector('input')?.placeholder).toBe('Email Address');
+    it("should render an input with placeholder \"Email Address\"", function() {
+        expect(document.querySelector("input")?.placeholder).toBe("Email Address");
     });
 
-    it('should render and associate input with label "Email Address"', function () {
-        const label = document.querySelector('label');
-        const input = document.querySelector('input');
+    it("should render and associate input with label \"Email Address\"", function() {
+        const label = document.querySelector("label");
+        const input = document.querySelector("input");
 
         expect(label).toBeTruthy();
 
         expect(label?.htmlFor).toBe(input?.id);
-        expect(label?.innerHTML).toBe('Email Address');
+        expect(label?.innerHTML).toBe("Email Address");
     });
 
-    it('should emit onChange event on input', async function () {
-        fireEvent.change(input, {target: {value: 'xxx'}});
-        expect(input.value).toBe('xxx');
+    it("should emit onChange event on input", async function() {
+        fireEvent.change(input, {target: {value: "xxx"}});
+        expect(input.value).toBe("xxx");
         expect(onChange).toBeCalled();
     });
 
-    it('should emit onFocus event on focus', async function () {
+    it("should emit onFocus event on focus", async function() {
         fireEvent.focus(input);
         expect(onFocus).toBeCalled();
     });
 
-    it('should render input with given value', function () {
-        expect(input.value).toBe('smrockypk@gmail.com');
+    it("should render input with given value", function() {
+        expect(input.value).toBe("smrockypk@gmail.com");
     });
 
-    it('should render input with required attribute', function () {
+    it("should render input with required attribute", function() {
         expect(input.required).toBeTruthy();
     });
 
-    it('should render input with an id', function () {
+    it("should render input with an id", function() {
         expect(input.id).toBeTruthy();
     });
 });

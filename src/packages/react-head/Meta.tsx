@@ -3,13 +3,13 @@ import headManager from "./HeadManager";
 
 type MetaProps = {
     charset?: string,
-    'httpEquiv'?: string,
+    "httpEquiv"?: string,
     name?: string,
     content?: string
 };
 
 export function Meta(props: MetaProps) {
-    const [id] = useState<string>('meta_id_' + Math.random().toString(36).substring(2, 11));
+    const [id] = useState<string>("meta_id_" + Math.random().toString(36).substring(2, 11));
     headManager.add(id, props);
 
     useEffect(() => {

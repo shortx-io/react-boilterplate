@@ -10,20 +10,20 @@ export type AuthContextProps = {
 
 export const initialState: AuthContextProps = {
     isAuthenticated: false,
-}
+};
 
 export const actions = {
-    LOGIN: 'LOGIN',
-    LOGOUT: 'LOGOUT',
-    UPDATE_USER: 'UPDATE_USER',
-    SET_NEXT_ROUTE: 'SET_NEXT_ROUTE',
-}
+    LOGIN: "LOGIN",
+    LOGOUT: "LOGOUT",
+    UPDATE_USER: "UPDATE_USER",
+    SET_NEXT_ROUTE: "SET_NEXT_ROUTE",
+};
 
 export function AuthReducer(state: AuthContextProps, action: {
     type: string,
     payload?: AuthContextProps
 }): AuthContextProps {
-    switch (action.type) {
+    switch(action.type) {
         case actions.LOGIN:
             return {
                 ...state,

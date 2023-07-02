@@ -3,7 +3,7 @@ export function wait(ms: number) {
 }
 
 export function isUndefined(value: any) {
-    return typeof value === 'undefined';
+    return typeof value === "undefined";
 }
 
 export function isNull(value: any) {
@@ -15,7 +15,7 @@ export function isNullOrUndefined(value: any) {
 }
 
 export function isString(value: any) {
-    return typeof value === 'string';
+    return typeof value === "string";
 }
 
 export function ifStringOr(value: any, defaultValue: string): string {
@@ -23,5 +23,5 @@ export function ifStringOr(value: any, defaultValue: string): string {
 }
 
 export function isNumber(value: any) {
-    return typeof value === 'number';
+    return typeof value === "number";
 }

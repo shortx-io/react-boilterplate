@@ -1,10 +1,10 @@
+import TextBox from "components/input/TextBox";
+import {useAuth} from "providers/AuthProvider";
 import {MouseEventHandler, useState} from "react";
 import {Title} from "react-head/Title";
 import {Navigate} from "react-router";
 import {NavLink} from "react-router-dom";
-import TextBox from "components/input/TextBox";
 import {User} from "../models/user";
-import {useAuth} from "providers/AuthProvider";
 
 type AuthenticationProps = {
     isSignUp: boolean,
@@ -14,15 +14,15 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
     const auth = useAuth();
     const [redirect, setRedirect] = useState<string | undefined>(undefined);
 
-    if (redirect) {
+    if(redirect) {
         return <Navigate to={redirect}/>;
     }
 
     const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
-        auth.dispatch(auth.actions.login({} as User, 'xxx'));
-        setRedirect(auth.nextRoute || '/');
+        auth.dispatch(auth.actions.login({} as User, "xxx"));
+        setRedirect(auth.nextRoute || "/");
     };
 
     return (
@@ -36,7 +36,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                         alt="Your Company"
                     />
                     <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        {isSignUp ? 'Create an account' : 'Sign in to your account'}
+                        {isSignUp ? "Create an account" : "Sign in to your account"}
                     </h2>
                 </div>
 
@@ -69,20 +69,20 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                 </div>
                             }
 
-                            <TextBox id='email'
+                            <TextBox id="email"
                                      name="email"
                                      type="email"
                                      required
                                      placeholder="Email Address"/>
 
-                            <TextBox id='password'
+                            <TextBox id="password"
                                      name="password"
                                      type="password"
                                      required
                                      placeholder="Password"/>
 
                             {isSignUp &&
-                                <TextBox id='confirm_password'
+                                <TextBox id="confirm_password"
                                          name="confirm_password"
                                          type="password"
                                          required
@@ -115,7 +115,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                     onClick={onSubmit}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
-                                    {isSignUp ? 'Sign up' : 'Sign in'}
+                                    {isSignUp ? "Sign up" : "Sign in"}
                                 </button>
                             </div>
                         </form>
@@ -160,14 +160,14 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                     </div>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        {isSignUp ? 'Already a member?' : 'Not a member?'} {' '}
-                        <NavLink to={isSignUp ? '/login' : '/signup'}
-                           className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
-                            {isSignUp ? 'Login here' : 'Sign up for a new account'}
+                        {isSignUp ? "Already a member?" : "Not a member?"} {" "}
+                        <NavLink to={isSignUp ? "/login" : "/signup"}
+                                 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
+                            {isSignUp ? "Login here" : "Sign up for a new account"}
                         </NavLink>
                     </p>
                 </div>
             </div>
         </>
-    )
+    );
 }

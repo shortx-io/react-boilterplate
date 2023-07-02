@@ -21,5 +21,5 @@ export type InputFieldProperties = {
 };
 
 export function Input(props: InputFieldProperties) {
-    return <input {...props} />
+    return <input {...props} />;
 }

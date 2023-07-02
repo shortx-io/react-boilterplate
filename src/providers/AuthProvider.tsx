@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useReducer} from "react";
+import * as actions from "./actions/auth-actions";
 import {AuthContextProps, AuthReducer, initialState} from "./reducers/auth-reducer";
-import * as actions from './actions/auth-actions';
 
 type ActionsType = typeof actions;
 
@@ -16,7 +16,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     return <AuthContext.Provider value={{...state, actions, dispatch}}>
         {children}
-    </AuthContext.Provider>
+    </AuthContext.Provider>;
 }
 
 export function useAuth() {

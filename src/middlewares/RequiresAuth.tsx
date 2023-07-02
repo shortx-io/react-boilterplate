@@ -10,7 +10,7 @@ export function RequiresAuth({children}: PropsWithChildren) {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        if (auth.isAuthenticated) {
+        if(auth.isAuthenticated) {
             return;
         }
 
@@ -18,11 +18,11 @@ export function RequiresAuth({children}: PropsWithChildren) {
         setRedirect(true);
     }, [auth, url]);
 
-    if (redirect) {
+    if(redirect) {
         return <Navigate to={"/login"}/>;
     }
 
-    if (!auth.isAuthenticated) {
+    if(!auth.isAuthenticated) {
         return null;
     }
 
