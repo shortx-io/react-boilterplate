@@ -7,11 +7,7 @@ import {Trans, useTranslation} from "react-i18next";
 import {Navigate} from "react-router";
 import {NavLink} from "react-router-dom";
 
-type AuthenticationProps = {
-    isSignUp: boolean,
-}
-
-export default function Authentication({isSignUp}: AuthenticationProps) {
+export default function Register() {
     const auth = useAuth();
     const [redirect, setRedirect] = useState<string | undefined>(undefined);
     const [t] = useTranslation();
@@ -29,7 +25,9 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
 
     return (
         <>
-            <Title>{t(isSignUp ? 'Sign up' : 'Login')}</Title>
+            <Title>
+                <Trans>Sign up</Trans>
+            </Title>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <img
@@ -38,38 +36,36 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                         alt="Your Company"
                     />
                     <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        {isSignUp ? t("Create an account") : t("Sign in to your account")}
+                        <Trans>Create an account</Trans>
                     </h2>
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
                     <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
                         <form className="space-y-6" method="POST">
-                            {isSignUp &&
-                                <div>
-                                    <div className="flex -space-x-px mt-2">
-                                        <TextBox id="first-name"
-                                                 name="first_name"
-                                                 required
-                                                 boxClass="w-1/2 min-w-0 flex-1"
-                                                 label={t("First Name")}
-                                                 labelClass="sr-only"
-                                                 inputClass="relative block w-full rounded-none rounded-l-md border-0 bg-transparent py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                 placeholder={t("First Name")}
-                                                 inputContainerClass=""/>
+                            <div>
+                                <div className="flex -space-x-px mt-2">
+                                    <TextBox id="first-name"
+                                             name="first_name"
+                                             required
+                                             boxClass="w-1/2 min-w-0 flex-1"
+                                             label={t("First Name")}
+                                             labelClass="sr-only"
+                                             inputClass="relative block w-full rounded-none rounded-l-md border-0 bg-transparent py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                             placeholder={t("First Name")}
+                                             inputContainerClass=""/>
 
-                                        <TextBox id="last-name"
-                                                 name="last_name"
-                                                 required
-                                                 boxClass="w-1/2 min-w-0 flex-1"
-                                                 label={t("Last Name")}
-                                                 labelClass="sr-only"
-                                                 inputClass="relative block w-full rounded-none rounded-r-md border-0 bg-transparent py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                 placeholder={t("Last Name")}
-                                                 inputContainerClass=""/>
-                                    </div>
+                                    <TextBox id="last-name"
+                                             name="last_name"
+                                             required
+                                             boxClass="w-1/2 min-w-0 flex-1"
+                                             label={t("Last Name")}
+                                             labelClass="sr-only"
+                                             inputClass="relative block w-full rounded-none rounded-r-md border-0 bg-transparent py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                             placeholder={t("Last Name")}
+                                             inputContainerClass=""/>
                                 </div>
-                            }
+                            </div>
 
                             <TextBox id="email"
                                      name="email"
@@ -87,17 +83,15 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                      required
                                      placeholder={t("Password")}/>
 
-                            {isSignUp &&
-                                <TextBox id="confirm_password"
-                                         name="confirm_password"
-                                         type="password"
-                                         label={t("Confirm Password")}
-                                         labelClass="sr-only"
-                                         required
-                                         placeholder={t("Confirm Password")}/>
-                            }
+                            <TextBox id="confirm_password"
+                                     name="confirm_password"
+                                     type="password"
+                                     label={t("Confirm Password")}
+                                     labelClass="sr-only"
+                                     required
+                                     placeholder={t("Confirm Password")}/>
 
-                            {!isSignUp && <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between">
                                 <div className="flex items-center">
                                     <input
                                         id="remember-me"
@@ -115,7 +109,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                         <Trans>Forgot password?</Trans>
                                     </a>
                                 </div>
-                            </div>}
+                            </div>
 
                             <div>
                                 <button
@@ -123,7 +117,7 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                                     onClick={onSubmit}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
-                                    {isSignUp ? t("Sign up") : t("Sign in")}
+                                    <Trans>Sign up</Trans>
                                 </button>
                             </div>
                         </form>
@@ -168,10 +162,10 @@ export default function Authentication({isSignUp}: AuthenticationProps) {
                     </div>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        <Trans>{isSignUp ? "Already a member?" : "Not a member?"}</Trans> {" "}
-                        <NavLink to={isSignUp ? "/login" : "/signup"}
+                        <Trans>Already a member?</Trans> {" "}
+                        <NavLink to="/login"
                                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
-                            <Trans>{isSignUp ? "Login here" : "Sign up for a new account"}</Trans>
+                            <Trans>Login here</Trans>
                         </NavLink>
                     </p>
                 </div>

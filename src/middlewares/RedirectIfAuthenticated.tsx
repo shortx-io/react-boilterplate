@@ -1,13 +1,20 @@
 import {useAuth} from "providers";
-import {PropsWithChildren} from "react";
+import {PropsWithChildren, ReactNode} from "react";
 import {Navigate} from "react-router";
 
-export function RedirectIfAuthenticated({children}: PropsWithChildren) {
+type Props = {
+    c?: ReactNode;
+} & PropsWithChildren;
+
+export function RedirectIfAuthenticated(props: Props) {
     const auth = useAuth();
 
     if(auth.isAuthenticated) {
         return <Navigate to={"/"}/>;
     }
 
-    return children;
+    return <>
+        {props.c}
+        {props.children}
+    </>;
 }

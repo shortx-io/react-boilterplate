@@ -1,7 +1,35 @@
+import {PropsWithChildren} from "react";
 import headManager from "./HeadManager";
 
-export function Title(props: { children: string }) {
-    headManager.setTitle(props.children);
+function jsxToString(jsx: PropsWithChildren): string {
+    if(jsx === null || jsx === undefined) {
+        return "";
+    }
+
+    if(typeof jsx !== "object") {
+        return `${jsx}`;
+    }
+
+    if(Array.isArray(jsx)) {
+        return jsx.map(jsxToString).join("");
+    }
+
+    if(jsx?.children === null || jsx?.children === undefined) {
+        return "";
+    }
+
+    if(typeof jsx.children !== "object") {
+        return `${jsx.children}`;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return jsxToString(jsx?.children.props);
+}
+
+export function Title(title: PropsWithChildren) {
+    const titleText = jsxToString(title);
+    headManager.setTitle(titleText);
 
     return null;
 }

@@ -1,8 +1,12 @@
 import {useAuth} from "providers";
-import {PropsWithChildren, useEffect, useState} from "react";
+import {PropsWithChildren, ReactNode, useEffect, useState} from "react";
 import {Navigate, useLocation} from "react-router";
 
-export function RequiresAuth({children}: PropsWithChildren) {
+type Props = {
+    c?: ReactNode;
+} & PropsWithChildren;
+
+export function RequiresAuth(props: Props) {
     const auth = useAuth();
     const location = useLocation();
     const [url] = useState(location.pathname);
@@ -26,5 +30,8 @@ export function RequiresAuth({children}: PropsWithChildren) {
         return null;
     }
 
-    return children;
+    return <>
+        {props.c}
+        {props.children}
+    </>;
 }
