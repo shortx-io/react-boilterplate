@@ -1,4 +1,4 @@
-import {cleanup, fireEvent, render, screen} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import {useContext} from "react";
 import {wait} from "utils/helpers";
 import AxiosHttpClient from "utils/http-client";
@@ -11,6 +11,7 @@ const fn = vi.fn();
 
 beforeAll(async () => {
     server = new MockServer({
+        mockDir: "src/mocks",
         path: "/api",
         port: 8082,
     });
@@ -53,7 +54,6 @@ const setup = () => {
 
 describe("<HttpClientProvider />", function() {
     beforeEach(setup);
-    afterEach(cleanup);
 
     it("should handle http requests as expected", async function() {
         fireEvent.click(await screen.findByTestId("test"));

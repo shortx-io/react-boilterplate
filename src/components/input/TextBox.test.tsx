@@ -1,9 +1,7 @@
-import {cleanup, fireEvent, render, RenderResult} from "@testing-library/react";
+import {fireEvent, render, RenderResult} from "@testing-library/react";
 import TextBox from "components/input/TextBox";
 import {vi} from "vitest";
 import "@/i18n";
-
-afterEach(cleanup);
 
 const onChange = vi.fn();
 const onFocus = vi.fn();

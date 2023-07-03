@@ -1,4 +1,4 @@
-import {MockHandler} from "../plugins/mock-server/server";
+import {MockHandler} from "../../plugins/mock-server/server";
 
 export default [
     {
