@@ -11,7 +11,7 @@
     "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui --coverage"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
