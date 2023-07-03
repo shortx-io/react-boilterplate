@@ -24,6 +24,7 @@ export default defineConfig({
             exclude: [
                 ...configDefaults.exclude,
                 "plugins/mock-server/*",
+                "mocks/*",
             ]
         },
     },
