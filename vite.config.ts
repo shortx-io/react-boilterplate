@@ -10,7 +10,7 @@ export default defineConfig({
     plugins: [
         react({tsDecorators: true}),
         tsconfigPaths(),
-        mockServer({mockDir: "src/mocks"}),
+        mockServer(),
     ],
     // @ts-ignore
     test: {

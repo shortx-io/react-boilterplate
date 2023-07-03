@@ -3,7 +3,7 @@ import ApiError from "contracts/api-error";
 import ApiResponse from "contracts/api-response";
 import {HttpClient} from "providers/HttpClientProvider";
 
-abstract class BaseHttpClient {
+export abstract class BaseHttpClient {
     static Instance<T extends BaseHttpClient>(this: new () => T): T {
         return new Proxy(new this(), {
             get: function(target: T, prop: keyof T & string & symbol) {

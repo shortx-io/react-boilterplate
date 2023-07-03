@@ -8,7 +8,6 @@ let server: MockServer;
 
 beforeAll(async () => {
     server = new MockServer({
-        mockDir: "src/mocks",
         path: "/api",
         port: 8081,
     });
