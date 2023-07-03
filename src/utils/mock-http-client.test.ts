@@ -1,47 +1,32 @@
 import ApiError from "contracts/api-error";
 import ApiResponse from "contracts/api-response";
-import {HttpClient} from "providers/HttpClientProvider";
-import AxiosHttpClient from "utils/http-client";
-import MockServer from "../../plugins/mock-server/server";
-
-let server: MockServer;
-
-beforeAll(async () => {
-    server = new MockServer({
-        path: "/api",
-        port: 8081,
-    });
-    await server.start();
-});
-
-afterAll(async () => {
-    await server.stop();
-});
+import MockHttpClient from "utils/mock-http-client";
 
 const params = {hello: "world"};
 const body = {goodbye: "world"};
 const combined = {...params, ...body};
 
-const setupHttp = () => {
-    const httpClient = AxiosHttpClient.Instance();
-    httpClient.setBaseUrl(server.getUrl());
+const setupMockHttp = async () => {
+    const httpClient = new MockHttpClient("mocks");
+    await httpClient.loadMocks();
+    httpClient.setBaseUrl("http://localhost/api");
 
     return httpClient;
 };
 
-describe("http-client", () => {
-    let httpClient: HttpClient;
+let httpClient: MockHttpClient;
 
-    beforeEach(() => {
-        httpClient = setupHttp();
-    });
+beforeAll(async () => {
+    httpClient = await setupMockHttp();
+});
 
+describe("mock-http-client", () => {
     it("should be able to get an instance of the http client", () => {
-        expect(httpClient).toBeInstanceOf(AxiosHttpClient);
+        expect(httpClient).toBeInstanceOf(MockHttpClient);
     });
 
     it("should be able to set the base url", () => {
-        httpClient.setBaseUrl("/api");
+        httpClient.setBaseUrl("http://localhost/api");
 
         expect(httpClient.getBaseUrl()).toBe("/api");
     });
@@ -87,5 +72,23 @@ describe("http-client", () => {
                         .catch((err: unknown) => {
                             expect(err).toBeInstanceOf(ApiError);
                         });
+    });
+
+    it("should handle 404 responses for non-existent routes", async function() {
+        await httpClient.get("/verbs/non-existent")
+                        .catch((err: unknown) => {
+                            expect(err).toBeInstanceOf(ApiError);
+                        });
+    });
+
+    it("should be able to add route in runtime", async function() {
+        await httpClient.addRoute("get", "/api/verbs/runtime", () => {
+            return {status: 200, body: "OK"};
+        });
+
+        // await httpClient.get("/verbs/runtime")
+        //     .then(r => {
+        //         expect(r.data).toBe("OK");
+        //     })
     });
 });

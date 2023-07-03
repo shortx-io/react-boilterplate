@@ -95,7 +95,7 @@ export default class MockServer {
         }
     }
 
-    async addRoute(path: string, method: MockMethod, response: ResponseHandler) {
+    async addRoute(method: MockMethod, path: string, response: ResponseHandler) {
         this.handlers.push({
             path,
             method,

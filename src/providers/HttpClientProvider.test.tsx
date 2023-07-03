@@ -16,7 +16,7 @@ beforeAll(async () => {
         path: "/api",
         port: 8082,
     });
-    await server.addRoute("/api/test", "get", () => {
+    await server.addRoute("get", "/api/test", () => {
         fn();
 
         return {
@@ -53,10 +53,10 @@ const setupAxios = () => {
     );
 };
 
-const setupMock = () => {
+const setupMock = async () => {
     const httpClient = new MockHttpClient("mocks");
     httpClient.setBaseUrl("http://localhost/api");
-    httpClient.addRoute("/api/test", "get", () => {
+    await httpClient.addRoute("get", "/api/test", () => {
         return {
             status: 200,
             body: "OK",

@@ -22,13 +22,17 @@ export default class MockHttpClient extends BaseHttpClient implements HttpClient
     };
     private authToken?: string;
     private baseURL?: string;
+    private readonly mockDir: string;
 
     constructor(mockDir: string) {
         super();
+        this.mockDir = mockDir;
+    }
 
-        const mockFiles = fs.readdirSync(mockDir);
+    async loadMocks() {
+        const mockFiles = fs.readdirSync(this.mockDir);
         for(const mockFile of mockFiles) {
-            import(`${mockDir}/${mockFile}`).then(({default: module}) => {
+            await import(`${this.mockDir}/${mockFile}`).then(({default: module}) => {
                 const mocks = module as MockHandler[];
                 for(const mock of mocks) {
                     this.handlers[mock.method][mock.path] = mock.response;
@@ -37,8 +41,8 @@ export default class MockHttpClient extends BaseHttpClient implements HttpClient
         }
     }
 
-    addRoute(path: string, method: string, handler: (req: Request) => { status: number, body?: unknown }) {
-        this.handlers[method][path] = handler;
+    async addRoute(method: string, path: string, handler: (req: Request) => { status: number, body?: unknown }) {
+        this.handlers[method.toLowerCase()][path] = handler;
     }
 
     async respond<R, D = unknown>(method: string, url: string, data?: D, config?: ConfigType) {
