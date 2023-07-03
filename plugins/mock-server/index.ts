@@ -1,5 +1,6 @@
 import c from "picocolors";
 import {PreviewServerForHook, ProxyOptions, ResolvedConfig, ViteDevServer} from "vite";
+// @ts-ignore
 import MockServer, {defaults, MockServerOptions} from "./server";
 
 
@@ -28,11 +29,30 @@ class ViteMockServer {
             return (req: unknown, res: unknown, next: () => unknown) => next();
         }
 
-        return await this.mockServer.createMiddleware();
+        const app = await this.mockServer.createMiddleware();
+
+        return (req, res, next) => {
+            if(req.url.startsWith(this.config.path)) {
+                try { return app(req, res, next); }
+                catch(e) {
+                    return next();
+                }
+            }
+
+            return next();
+        };
     }
 
     async configureServer(_server: ViteDevServer | PreviewServerForHook) {
         _server.middlewares.use(await this.createMiddleware());
+
+        if("watcher" in _server) {
+            const watcher = (_server as ViteDevServer).watcher;
+            watcher.add(this.config.mockDir)
+                   .on("all", async (_, file) => {
+                       await this.mockServer.clearCache(file);
+                   });
+        }
 
         const _print = _server.printUrls;
         const path = this.config.path;

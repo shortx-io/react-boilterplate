@@ -24,7 +24,7 @@ abstract class BaseHttpClient {
         return req
             .then((res) => ApiResponse.fromAxiosResponse<T>(res))
             .catch((err) => {
-                throw Promise.reject(ApiError.fromAxiosError(err));
+                throw ApiError.fromAxiosError(err);
             });
     }
 }
