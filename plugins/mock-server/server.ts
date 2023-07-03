@@ -65,7 +65,7 @@ export default class MockServer {
             this.app?.[handler.method](handler.path, handler.response);
         }
 
-        this.app.use((req, res) => {
+        this.app.use((_, res) => {
             return res.status(404).send("Resource not found").end();
         });
 
