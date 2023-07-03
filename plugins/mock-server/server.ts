@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import {bundleRequire} from "bundle-require";
-import cors from 'cors';
+import cors from "cors";
 import express, {Express, Request} from "express";
-import http from "node:http";
 import fs from "node:fs";
+import http from "node:http";
 import path from "node:path";
 
 export type MockServerOptions = {
@@ -14,15 +14,17 @@ export type MockServerOptions = {
 
 export type MockMethod = "get" | "post" | "put" | "delete" | "patch" | "head" | "options" | "all";
 
+export type ResponseHandler = (req: Request) =>
+    {
+        status: number;
+        headers?: Record<string, string>;
+        body: unknown;
+    };
+
 export type MockHandler = {
     path: string,
     method: MockMethod,
-    response: (req: Request) =>
-        {
-            status: number;
-            headers?: Record<string, string>;
-            body: unknown;
-        }
+    response: ResponseHandler,
 };
 
 export const defaults: MockServerOptions = {
@@ -35,10 +37,17 @@ export default class MockServer {
     private readonly config: MockServerOptions;
     private server?: http.Server;
     private app?: Express;
+    private handlers: MockHandler[] = []; // later added
 
     constructor(_config: MockServerOptions = {}) {
         this.config = {...defaults, ..._config};
         this.config.mockDir = path.resolve(this.config.mockDir as string);
+    }
+
+    checkServerCreated() {
+        if(!this.app) {
+            throw new Error("Server isn't created.");
+        }
     }
 
     async createMiddleware() {
@@ -52,16 +61,22 @@ export default class MockServer {
             await this.attachHandlers(file);
         }
 
-        this.app.use((_, res) => {
-            return res.status(404).send('Resource not found').end();
+        for(const handler of this.handlers) {
+            this.app?.[handler.method](handler.path, handler.response);
+        }
+
+        this.app.use((req, res) => {
+            return res.status(404).send("Resource not found").end();
         });
 
         return this.app;
     }
 
     async attachHandlers(file: string) {
-        const filepath =`${this.config.mockDir}/${file}`;
-        if (!fs.existsSync(filepath)) {
+        this.checkServerCreated();
+
+        const filepath = `${this.config.mockDir}/${file}`;
+        if(!fs.existsSync(filepath)) {
             console.log(`Could not find mock file: ${file}`);
             return;
         }
@@ -80,23 +95,31 @@ export default class MockServer {
         }
     }
 
+    async addRoute(path: string, method: MockMethod, response: ResponseHandler) {
+        this.handlers.push({
+            path,
+            method,
+            response,
+        });
+    }
+
     async clearCache(file: string) {
-        if (!file.startsWith(this.config.mockDir as string)) {
+        if(!file.startsWith(this.config.mockDir as string)) {
             return;
         }
 
-        const filename = file.replace(new RegExp(`^${this.config.mockDir}/?`, 'g'), '');
-        console.log('Mock update:', filename);
+        const filename = file.replace(new RegExp(`^${this.config.mockDir}/?`, "g"), "");
+        console.log("Mock update:", filename);
 
         await this.attachHandlers(filename);
     }
-
 
     async create() {
         this.server = http.createServer(await this.createMiddleware());
     }
 
     async start() {
+        await this.create();
         this.server?.listen(this.config.port);
     }
 
@@ -105,6 +128,6 @@ export default class MockServer {
     }
 
     getUrl() {
-        return 'http://' + `localhost:${this.config.port}/${this.config.path}`.replace(/\/\//g, '/');
+        return "http://" + `localhost:${this.config.port}/${this.config.path}`.replace(/\/\//g, "/");
     }
 }

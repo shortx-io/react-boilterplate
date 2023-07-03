@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import {cleanup, fireEvent, render, screen} from "@testing-library/react";
 import BaseApi from "api/base.api";
 import {createApiProvider} from "factories/api-provider";
 import {useContext} from "react";
@@ -35,6 +35,7 @@ const setup = () => {
 
 describe("createApiProvider()", function() {
     beforeEach(setup);
+    afterEach(cleanup);
 
     it("should be able to use the api within the provider scope", async function() {
         fireEvent.click(await screen.findByTestId("test"));

@@ -11,7 +11,6 @@ beforeAll(async () => {
         path: "/api",
         port: 8081,
     });
-    await server.create();
     await server.start();
 });
 

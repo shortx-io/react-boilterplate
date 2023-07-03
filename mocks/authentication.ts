@@ -2,19 +2,6 @@ import {MockHandler} from "../plugins/mock-server/server";
 
 export default [
     {
-        path: '/api/test',
-        method: 'get',
-        response(req) {
-            console.log(req.body);
-            return {
-                status: 200,
-                body: {
-                    hello: 'world',
-                },
-            };
-        }
-    },
-    {
         path: "/api/auth/login",
         method: "post",
         response(req) {

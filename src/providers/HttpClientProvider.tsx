@@ -21,7 +21,7 @@ export interface HttpClient {
     delete<R, C = unknown>(url: string, config?: C): Promise<ApiResponse<R>>;
 }
 
-const HttpClientContext = createContext<HttpClient>({} as HttpClient);
+export const HttpClientContext = createContext<HttpClient>({} as HttpClient);
 
 export function HttpClientProvider({children, value}: { children: React.ReactNode, value: HttpClient }) {
     return <HttpClientContext.Provider value={value}>
