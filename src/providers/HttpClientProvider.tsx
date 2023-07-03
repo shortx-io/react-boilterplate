@@ -1,13 +1,24 @@
+import ApiResponse from "contracts/api-response";
 import React, {createContext} from "react";
-import {AxiosRequestConfig, AxiosResponse} from "axios";
 
 export interface HttpClient {
+    setBaseUrl(url: string): void;
+
+    getBaseUrl(): unknown;
+
     setAuthorizationHeader(token: string): void;
-    get<T = never, R = AxiosResponse<T>, D = never>(url: string, config?: AxiosRequestConfig<D>): Promise<R>;
-    post<T = never, R = AxiosResponse<T>, D = never>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R>;
-    put<T = never, R = AxiosResponse<T>, D = never>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R>;
-    patch<T = never, R = AxiosResponse<T>, D = never>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R>;
-    delete<T = never, R = AxiosResponse<T>, D = never>(url: string, config?: AxiosRequestConfig<D>): Promise<R>;
+
+    getAuthorizationHeader(): unknown;
+
+    get<R, C = unknown>(url: string, config?: C): Promise<ApiResponse<R>>;
+
+    post<R, D = unknown, C = unknown>(url: string, data?: D, config?: C): Promise<ApiResponse<R>>;
+
+    put<R, D = unknown, C = unknown>(url: string, data?: D, config?: C): Promise<ApiResponse<R>>;
+
+    patch<R, D = unknown, C = unknown>(url: string, data?: D, config?: C): Promise<ApiResponse<R>>;
+
+    delete<R, C = unknown>(url: string, config?: C): Promise<ApiResponse<R>>;
 }
 
 const HttpClientContext = createContext<HttpClient>({} as HttpClient);

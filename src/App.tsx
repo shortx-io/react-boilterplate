@@ -6,7 +6,7 @@ import HttpClient from "utils/http-client";
 import router from "./Router";
 
 export function App() {
-    const httpClient = new HttpClient();
+    const httpClient = HttpClient.Instance();
     const DEV = import.meta.env.DEV;
     const DEV_URL = import.meta.env.VITE_DEV_URL;
     const PROD_URL = import.meta.env.VITE_PROD_URL;

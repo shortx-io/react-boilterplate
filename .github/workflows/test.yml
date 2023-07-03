@@ -32,7 +32,6 @@ jobs:
           hide-summary: false
           coverage-title: Coverage
           coverage-path: ./coverage/coverage.txt
-          report-only-changed-files: true
 
       - name: Check the output coverage
         run: |

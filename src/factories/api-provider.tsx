@@ -1,12 +1,11 @@
-import {useHttpClient} from "providers";
-import {HttpClient} from "providers/HttpClientProvider";
-import {createContext, PropsWithChildren} from "react";
+import HttpClientContext, {HttpClient} from "providers/HttpClientProvider";
+import {createContext, PropsWithChildren, useContext} from "react";
 
 export function createApiProvider<T>(Api: (new (h: HttpClient) => T)) {
     const ApiContext = createContext<T>({} as T);
 
     function ApiProvider({children}: PropsWithChildren) {
-        const httpClient = useHttpClient();
+        const httpClient = useContext(HttpClientContext);
         const api = new Api(httpClient);
 
         return (

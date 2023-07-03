@@ -20,18 +20,20 @@ export type RegisterResponse = {
     message: string;
 }
 
-export type LogoutResponse = void;
+export type LogoutResponse = {
+    message: string;
+};
 
 export default class AuthApi extends BaseApi {
     login(data: LoginProps) {
-        return this.formatResponse<LoginResponse>(this.httpClient.post("/auth/login", data));
+        return this.httpClient.post<LoginResponse>("/auth/login", data);
     }
 
     register(data: RegisterProps) {
-        return this.formatResponse<RegisterResponse>(this.httpClient.post("/auth/register", data));
+        return this.httpClient.post<RegisterResponse>("/auth/register", data);
     }
 
     logout() {
-        return this.formatResponse<LogoutResponse>(this.httpClient.post("/auth/logout"));
+        return this.httpClient.post<LogoutResponse>("/auth/logout");
     }
 }
