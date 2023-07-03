@@ -127,12 +127,10 @@ export class FormField {
 
     onChange = (e: SyntheticEvent<HTMLInputElement | HTMLSelectElement>) => {
         if(e.currentTarget.type === "checkbox") {
-            // @ts-ignore
-            this._value = e.currentTarget.checked;
+            this._value = (e.currentTarget as HTMLInputElement).checked;
         }
         else if(e.currentTarget.type === "select-multiple") {
-            // @ts-ignore
-            const options = e.currentTarget.options;
+            const options = (e.currentTarget as HTMLSelectElement).options;
             const selected = [];
 
             for(let i = 0; i < options.length; i++) {

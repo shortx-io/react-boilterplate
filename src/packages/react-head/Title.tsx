@@ -22,9 +22,7 @@ function jsxToString(jsx: PropsWithChildren): string {
         return `${jsx.children}`;
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return jsxToString(jsx?.children.props);
+    return jsxToString((jsx?.children as {props: PropsWithChildren}).props);
 }
 
 export function Title(title: PropsWithChildren) {
