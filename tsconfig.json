@@ -36,6 +36,8 @@
       "middlewares/*": ["./src/middlewares/*"],
       "models": ["./src/models"],
       "models/*": ["./src/models/*"],
+      "form":["./src/packages/form"],
+      "form/*":["./src/packages/form/*"],
       "react-head":["./src/packages/react-head"],
       "react-head/*":["./src/packages/react-head/*"],
       "pages": ["./src/pages"],

@@ -5,7 +5,7 @@ import {MouseEventHandler, useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {Navigate} from "react-router";
 import {NavLink} from "react-router-dom";
-import {Email, Form, FormField, Min, Required} from "utils/form-helpers";
+import {Email, Form, FormField, MinMax, Required} from "form";
 
 export default function Login() {
     const auth = useAuth();
@@ -14,7 +14,7 @@ export default function Login() {
     const [t] = useTranslation();
     const [form, setForm] = useState(new Form<{ email: string, password: string }>([
         new FormField("email", "", [new Required(), new Email()]),
-        new FormField("password", "", [new Required(), new Min(8)]),
+        new FormField("password", "", [new Required(), new MinMax(8, 40)]),
     ]));
 
     if(redirect) {
