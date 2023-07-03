@@ -11,7 +11,6 @@ export default defineConfig({
         tsconfigPaths(),
         mockServer(),
     ],
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     test: {
         globals: true,
@@ -20,7 +19,7 @@ export default defineConfig({
         coverage: {
             provider: "istanbul",
             reportsDirectory: "coverage",
-            reporter: [["text", {file: "coverage.txt"}], "json-summary"],
+            reporter: [["text", {file: "coverage.txt"}], "json-summary", "html"],
         },
     },
     base: "/",
