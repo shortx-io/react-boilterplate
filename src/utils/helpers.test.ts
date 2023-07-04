@@ -2,7 +2,7 @@ import {ifStringOr, isNull, isNullOrUndefined, isNumber, isString, isUndefined, 
 
 describe("wait", () => {
     it("should wait for given timeout", async function() {
-        const timeout = 100;
+        const timeout = 10;
         const start = Date.now();
         await wait(timeout);
         const end = Date.now();

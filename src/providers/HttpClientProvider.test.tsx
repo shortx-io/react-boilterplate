@@ -70,7 +70,7 @@ const setupMock = async () => {
     );
 };
 
-describe("<HttpClientProvider axios />", function() {
+describe("<HttpClientProvider mock />", function() {
     beforeEach(setupAxios);
 
     it("should handle http requests as expected", async function() {
