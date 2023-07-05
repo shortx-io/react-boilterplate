@@ -14,13 +14,20 @@ class TestApi extends BaseApi {
 
 const {ApiProvider: TestApiProvider, ApiContext: TestApiContext} = createApiProvider(TestApi);
 const useTestApi = () => useContext(TestApiContext).api;
+const useTestDispatch = () => useContext(TestApiContext).dispatch;
 
 const TestComponent = () => {
     const testApi = useTestApi();
+    const dispatch = useTestDispatch();
+
+    const onClickTest = () => {
+        testApi.test();
+        dispatch({type: "test"}); // to make test coverage happy
+    };
 
     return <div>
         <button data-testid="test"
-                onClick={() => testApi.test()}>Test
+                onClick={onClickTest}>Test
         </button>
     </div>;
 };
