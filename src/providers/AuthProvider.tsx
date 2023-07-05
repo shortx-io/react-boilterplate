@@ -1,22 +1,13 @@
-import React, {createContext, useReducer} from "react";
+import AuthApi from "api/auth.api";
+import {createApiProvider} from "factories/api-provider";
 import * as actions from "./actions/auth-actions";
-import {AuthContextProps, AuthReducer, initialState} from "./reducers/auth-reducer";
+import {AuthReducer, initialState} from "./reducers/auth-reducer";
 
-type ActionsType = typeof actions;
+const {
+    ApiProvider: AuthProvider,
+    ApiContext: AuthContext,
+} = createApiProvider(AuthApi, AuthReducer, actions, initialState);
 
-type AuthContextPropsWithDispatch = AuthContextProps & {
-    dispatch: React.Dispatch<{ type: string, payload?: AuthContextProps }>,
-    actions: ActionsType,
-};
-
-const AuthContext = createContext<AuthContextPropsWithDispatch>({} as AuthContextPropsWithDispatch);
-
-export function AuthProvider({children}: { children: React.ReactNode }) {
-    const [state, dispatch] = useReducer(AuthReducer, initialState, x => x);
-
-    return <AuthContext.Provider value={{...state, actions, dispatch}}>
-        {children}
-    </AuthContext.Provider>;
-}
+export {AuthProvider, AuthContext};
 
 export default AuthContext;

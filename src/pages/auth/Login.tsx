@@ -1,15 +1,14 @@
 import TextBox from "components/input/TextBox";
+import {Email, Form, FormField, MinMax, Required} from "form";
 import AuthLayout from "layouts/AuthLayout";
-import {useAuth, useAuthApi} from "providers";
+import {useAuth} from "providers";
 import {MouseEventHandler, useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {Navigate} from "react-router";
 import {NavLink} from "react-router-dom";
-import {Email, Form, FormField, MinMax, Required} from "form";
 
 export default function Login() {
-    const auth = useAuth();
-    const authApi = useAuthApi();
+    const {api: authApi, state: auth} = useAuth();
     const [redirect, setRedirect] = useState<string | undefined>(undefined);
     const [t] = useTranslation();
     const [form, setForm] = useState(new Form<{ email: string, password: string }>([

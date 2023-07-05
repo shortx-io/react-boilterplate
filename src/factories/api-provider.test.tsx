@@ -13,7 +13,7 @@ class TestApi extends BaseApi {
 }
 
 const {ApiProvider: TestApiProvider, ApiContext: TestApiContext} = createApiProvider(TestApi);
-const useTestApi = () => useContext(TestApiContext);
+const useTestApi = () => useContext(TestApiContext).api;
 
 const TestComponent = () => {
     const testApi = useTestApi();
