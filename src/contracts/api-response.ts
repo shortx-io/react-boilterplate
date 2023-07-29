@@ -1,3 +1,5 @@
+import {AxiosResponse} from "axios";
+
 export default class ApiResponse<T> {
     public readonly data: T;
     public readonly status: number;
@@ -7,7 +9,7 @@ export default class ApiResponse<T> {
         this.status = status;
     }
 
-    static fromAxiosResponse<T>(response: any) {
+    static fromAxiosResponse<T>(response: AxiosResponse<never>) {
         return new ApiResponse<T>(response.data, response.status);
     }
 }

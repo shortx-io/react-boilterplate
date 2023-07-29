@@ -3,7 +3,7 @@ import {PropsWithChildren, ReactNode, useEffect, useState} from "react";
 import {Navigate, useLocation} from "react-router";
 
 type Props = {
-    component?: ReactNode;
+    element?: ReactNode;
 } & PropsWithChildren;
 
 export function RequiresAuth(props: Props) {
@@ -31,7 +31,7 @@ export function RequiresAuth(props: Props) {
     }
 
     return <>
-        {props.component}
+        {props.element}
         {props.children}
     </>;
 }

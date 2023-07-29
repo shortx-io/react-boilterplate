@@ -11,7 +11,7 @@ import {createBrowserRouter} from "react-router-dom";
 const Router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout/>}>
-            <Route path="/" element={<RequiresAuth component={<Dashboard/>}/>}/>
+            <Route path="/" element={<RequiresAuth element={<Dashboard/>}/>}/>
 
             <Route path="/login" element={<RedirectIfAuthenticated>
                 <ApiProvider providers={["auth"]}>

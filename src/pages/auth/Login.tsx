@@ -41,7 +41,7 @@ export default function Login() {
                    });
         }
 
-        if(false) {
+        if(!form) { // TODO: fix this
             setRedirect(auth.nextRoute || "/");
         }
     };
