@@ -1,14 +1,15 @@
 import TextBox from "components/input/TextBox";
-import {Email, Form, FormField, MinMax, Required} from "form";
+import { Email, Form, FormField, MinMax, Required } from "form";
 import AuthLayout from "layouts/AuthLayout";
-import {useAuth} from "providers";
-import {MouseEventHandler, useState} from "react";
-import {Trans, useTranslation} from "react-i18next";
-import {Navigate} from "react-router";
-import {NavLink} from "react-router-dom";
+import { useAuth, useHttpClient } from "providers";
+import { MouseEventHandler, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { Navigate } from "react-router";
+import { NavLink } from "react-router-dom";
 
 export default function Login() {
-    const {api: authApi, state: auth} = useAuth();
+    const {api: authApi, state: authState, actions: authActions, dispatch} = useAuth();
+    const httpClient = useHttpClient();
     const [redirect, setRedirect] = useState<string | undefined>(undefined);
     const [t] = useTranslation();
     const [form, setForm] = useState(new Form<{ email: string, password: string }>([
@@ -16,33 +17,32 @@ export default function Login() {
         new FormField("password", "", [new Required(), new MinMax(8, 40)]),
     ]));
 
-    if(redirect) {
+    if (redirect) {
         return <Navigate to={redirect}/>;
     }
 
-    const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const onSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
 
-        if(!form.validate()) {
+        if (!form.validate()) {
             return setForm(() => form.clone());
         }
         else {
-            const data = form.getValues();
+            try {
+                const data = form.getValues();
 
-            authApi.login(data)
-                   .then(response => {
-                       console.log(response);
-                   })
-                   .catch(error => {
-                       console.log(error);
-                   })
-                   .finally(() => {
-                       console.log("Request finished");
-                   });
-        }
+                const {data: {token}} = await authApi.login(data);
+                httpClient.setAuthorizationHeader(`Bearer ${token}`);
 
-        if(!form) { // TODO: fix this
-            setRedirect(auth.nextRoute || "/");
+                const user = await authApi.getUser();
+
+                dispatch(authActions.login(user.data, token));
+
+                setRedirect(authState.nextRoute || "/");
+            }
+            catch (e) {
+                console.log(e);
+            }
         }
     };
 

@@ -1,4 +1,4 @@
-import {User} from "../../models/user";
+import {User} from "models/user";
 import {actions} from "../reducers/auth-reducer";
 
 export function login(user: User, token: string) {

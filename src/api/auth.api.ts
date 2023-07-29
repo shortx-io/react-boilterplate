@@ -1,3 +1,4 @@
+import {User} from "models/user";
 import BaseApi from "./base.api";
 
 export type LoginProps = {
@@ -35,5 +36,9 @@ export default class AuthApi extends BaseApi {
 
     logout() {
         return this.httpClient.post<LogoutResponse>("/auth/logout");
+    }
+
+    getUser() {
+        return this.httpClient.get<User>("/auth/user");
     }
 }

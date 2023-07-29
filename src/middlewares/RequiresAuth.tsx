@@ -7,26 +7,26 @@ type Props = {
 } & PropsWithChildren;
 
 export function RequiresAuth(props: Props) {
-    const auth = useAuth();
+    const {state: authState, actions: authActions, dispatch} = useAuth();
     const location = useLocation();
     const [url] = useState(location.pathname);
 
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        if(auth.isAuthenticated) {
+        if(authState.isAuthenticated) {
             return;
         }
 
-        auth.dispatch(auth.actions.setNextRoute(url as string));
+        dispatch(authActions.setNextRoute(url as string));
         setRedirect(true);
-    }, [auth, url]);
+    }, [authState, authActions, dispatch, url]);
 
     if(redirect) {
         return <Navigate to={"/login"}/>;
     }
 
-    if(!auth.isAuthenticated) {
+    if(!authState.isAuthenticated) {
         return null;
     }
 
