@@ -25,5 +25,3 @@ There is a mock server available at `http://localhost:5173/api`
 ## Tests
 - To Run unit tests, run `yarn test:unit`
 - To run coverage report, run `yarn test:coverage`
-
-## Usages
